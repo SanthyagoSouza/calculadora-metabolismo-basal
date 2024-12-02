@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metabolismo</title>
+</head>
+
+<body>
+    <section>
+        <h1>Calculadora de Metabolismo Basal</h1>
+        <table>
+            <tr>
+                <td><Label>Genero</Label></td>
+                <td><label for="">M</label><input id="m" name="genero" type="radio" checked></td>
+                <td><label for="">F</label><input id="f" name="genero" type="radio"></td>
+            </tr>
+
+            <tr>
+                <td><Label>Peso em Kg</Label></td>
+                <td><input placeholder="67" id="peso" type="number"></td>
+            </tr>
+            <tr>
+                <td>Altura em CM</td>
+                <td><input id="altura" placeholder="173" type="number"></td>
+            </tr>
+            <tr>
+                <td>Idade</td>
+                <td><input id="idade" placeholder="25" type="number"></td>
+            </tr>
+            <tr>
+                <td>Fator de Atividade</td>
+                <td> <select name="" id="fator_atividade">
+                        <option value="1">Sedentario</option>
+                        <option value="2">Levemente ativo</option>
+                        <option value="3">Moderadamente ativo</option>
+                        <option value="4">Muito Ativo</option>
+                        <option value="5">Extremamente Ativo</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td><label for="">Calcular</label></td>
+                <td><button onclick="metabolismoBasal()">Calcular</button></td>
+            </tr>
+            <tr>
+                <td><label for="Resultado">Resultado</label></td>
+                <td>
+                    <p id="resultado">0,00</p>
+                </td>
+
+            </tr>
+        </table>
+
+
+    </section>
+    <script>
+
+
+
+        function metabolismoBasal() {
+            let tbm, tmb;
+            const peso = parseFloat(document.querySelector("#peso").value) || 0;
+            const altura = parseFloat(document.querySelector("#altura").value) || 0;
+            const idade = parseFloat(document.querySelector("#idade").value) || 0;
+            const fatorAtividade = parseInt(document.querySelector("#fator_atividade").value);
+            const generoMasculino = document.querySelector("#m").checked;
+            const generoFeminino = document.querySelector("#f").checked;
+
+
+            if (generoMasculino) {
+                tmb = 88.36 + (13.4 * peso) + (4.8 * altura) - (5.7 * idade);
+            } else if (generoFeminino) {
+                tmb = 447.6 + (9.2 * peso) + (3.1 * altura) - (4.3 * idade);
+            } else {
+                alert("Por favor selecione um genero")
+                return;
+            }
+
+            switch (fatorAtividade) {
+                case 1:
+                    tbm = tmb * 1.2;
+                    break;
+                case 2:
+                    tbm = tmb * 1.375;
+                    break;
+                case 3:
+                    tbm = tmb * 1.55;
+                    break;
+                case 4:
+                    tbm = tmb * 1.725;
+                    break;
+                case 5:
+                    tbm = tmb * 1.9;
+                    break;
+            }
+            document.querySelector("#resultado").textContent = tbm.toFixed(2);
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>
